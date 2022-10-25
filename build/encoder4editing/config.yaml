@@ -1,0 +1,6 @@
+awsAccessKey : "ACCESSKEY"
+awsSecretKey : "SECRETKEY"
+bucketName : "petbridge-dev"
+inputFirstDir : "remembrance"
+outputFirstDir : "rememeber_ai"
+location : "ap-northeast-2"
