@@ -4,17 +4,17 @@ services:
         image: petbridge:0.0.1
         container_name: pet-bridge
         build:
-            context: .
-            dockerfile: Dockerfile
+          context: .
+          dockerfile: Dockerfile
         shm_size: "8gb"
         runtime: nvidia
         ulimits:
-            memlock: -1
-            stack: 67108864
+          memlock: -1
+          stack: 67108864
         environment:
-          - NVIDIA_VISIBLE_DEVICES=all
+         - NVIDIA_VISIBLE_DEVICES=all
         volumes:
-          - ./ext-drive:/ext-drive
+         - ./ext-drive:/ext-drive
         working_dir: /encoder4editing
         network_mode: "host"
         tty: true
