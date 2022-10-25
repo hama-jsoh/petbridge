@@ -1,6 +1,20 @@
 # petbridge
-펫브릿지 with AWS
-#
+<p align="center">
+  <img src="https://img.shields.io/badge/version-0.0.1-orange?style=flat-square">
+  <img src="https://img.shields.io/badge/Python-3.6.x-3776AB?style=flat-square&logo=Python&logoColor=white">
+  <img src="https://img.shields.io/badge/CUDA-11.2.0-76B900?style=flat-square&logo=NVIDIA&logoColor=white">
+  <img src="https://img.shields.io/badge/CUDNN-8-76B900?style=flat-square&logo=NVIDIA&logoColor=white">
+</p>
+
+<p align="center">
+  
+</p>
+
+----
+펫브릿지 with AWS  
+
+----
+
 ## 1. pre-requisite
 아래 커맨드로 `copyfiles.zip`을 다운로드 받고 `docker/build/` 폴더 아래에 압축을 푼다.  
 
