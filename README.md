@@ -40,7 +40,7 @@ wget --load-cookies ~/cookies.txt "https://docs.google.com/uc?export=download&co
 git clone https://github.com/hama-jsoh/petbridge.git
 
 mv petbridge/build/ petbridge/docker/
-mv copyfiles.zip petbridge/docker/build/ && unzip copyfiles.zip && rm copyfiles.zip
+mv copyfiles.zip petbridge/docker/build/ && cd petbridge/docker/build && unzip copyfiles.zip && rm copyfiles.zip
 ```
 
 ## 2. build
