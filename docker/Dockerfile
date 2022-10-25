@@ -53,8 +53,8 @@ WORKDIR /
 RUN cp -r /build/copyfiles/afhqdog/ /StyleCLIP/global/npy/ \
  && cp -r /build/copyfiles/model/ /StyleCLIP/global/ \
  && cp -r /build/copyfiles/pretrained_models/ /encoder4editing/ \
- && cp -r /build/src/encoder/* /encoder4editing/ \
- && cp -r /build/src/styleclip/* /StyleCLIP/global/ \
+ && cp -r /build/encoder4editing/* /encoder4editing/ \
+ && cp -r /build/styleclip/* /StyleCLIP/global/ \
  && rm -rf /build
 
 RUN mkdir -p /output \
