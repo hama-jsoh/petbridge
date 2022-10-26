@@ -32,25 +32,27 @@
 
 ### 1-1. download copyfiles.zip
 ```bash
+git clone https://github.com/hama-jsoh/petbridge.git
+```
+```bash
 wget --load-cookies ~/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies ~/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1Kazha62DSt59RFkUpssUTWZJA5SImAxW' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1Kazha62DSt59RFkUpssUTWZJA5SImAxW" -O copyfiles.zip && rm -rf ~/cookies.txt
 ```
 
 ### 1-2. set folder structure
 ```bash
-git clone https://github.com/hama-jsoh/petbridge.git
-
-mv petbridge/build/ petbridge/docker/
-mv copyfiles.zip petbridge/docker/build/ && cd petbridge/docker/build && unzip copyfiles.zip && rm copyfiles.zip
+mv petbridge/build/ petbridge/docker/ \
+ && mv copyfiles.zip petbridge/docker/build/ \
+ && unzip petbridge/docker/build/copyfiles.zip \
+ && rm petbridge/docker/build/copyfiles.zip
 ```
 
-## 2. build
+## 2. build (dev server)
 ```bash
-cd petbridge/docker
-docker-compose -f docker-compose-build.yaml up -d
+cd petbridge/docker \
+ && docker-compose -f docker-compose-build.yaml up -d
 ```
 
-## 3. Run service
+## 3. Run service (service server)
 ```bash
-cd petbridge/docker
 docker-compose up -d
 ```
