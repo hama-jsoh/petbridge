@@ -2,6 +2,7 @@ import boto3
 import json, yaml
 import logging
 import warnings
+import requests
 
 warnings.filterwarnings(action='ignore')
 
@@ -52,7 +53,7 @@ def RetrieveFile(container_id: str = '11'):
         return False
 
 # S3 파일 업로드 및 url 가져오기
-def UploadFile(imagePath: str, imageName: str, containerId: str) -> str:
+def UploadFile1(imagePath: str, imageName: str, containerId: str) -> str:
     config = LoadConfig("./config.yaml")
     objectName = "{}/{}/{}".format(config['outputFirstDir'], containerId, imageName)
     bucketName = config["bucketName"]
@@ -75,3 +76,17 @@ def UploadFile(imagePath: str, imageName: str, containerId: str) -> str:
 
     imageUrl = f"https://{config['bucketName']}.s3.{config['location']}.amazonaws.com/{objectName}"
     return imageUrl
+
+# API Call S3 파일 업로드 & DB 등록
+def UploadFile2(imagePath: str, containerId: str):
+    config = LoadConfig("./config.yaml")
+    data = {"a_container_id": containerId, "a_container_type": config['outputFirstDir']}
+    file = {"files": open(imagePath, 'rb')}
+    url = "http://devapi.petbridge.co.kr/api/file"
+    try:
+        res = requests.post(url, files=file, data=data).json()
+        response = res['ResultCode']
+        return response
+    except Exception as e:
+        print(e)
+        return False
