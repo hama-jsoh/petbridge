@@ -11,7 +11,7 @@ import os
 import json
 import requests
 from PIL import Image
-from s3 import UploadFile, RetrieveFile, LoadConfig
+from s3 import UploadFile2, RetrieveFile, LoadConfig
 from io import BytesIO
 from urllib import request as req
 
@@ -113,8 +113,11 @@ def predict():
 
         if fileExt in exts:
             imagePath, imageName = rememberAi.Inference(text=hostText)
-            imageUrl = UploadFile(imagePath, imageName, containerId)
-            done.append(dict(rp_idx=containerId, msg=imageUrl))
+            response = UploadFile2(imagePath, containerId)
+            if response == "SUCCEEDED":
+                done.append(dict(rp_idx=containerId, msg=response))
+            else:
+                failed.append(dict(rp_idx=containerId, msg=response))
         elif fileExt not in exts:
             failed.append(dict(rp_idx=containerId, msg=-1))
         else:
