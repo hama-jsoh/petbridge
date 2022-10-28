@@ -73,17 +73,15 @@ class StyleClipGenerator:
     ) -> None:
         classnames = [target, neutral]
         dt = GetDt(classnames, self.model)
-        fileName = self.filename
         self.M_.alpha = [alpha]
         boundary_tmp2, c = GetBoundary(self.fs3, dt, self.M_, threshold=beta)
         codes = self.M_.MSCode(self.dlatent, boundary_tmp2)
         out = self.M_.GenerateImg(codes)
-        generated = Image.fromarray(out[0, 0])
-        print("generated img!")
-        plt.figure(figsize=(10, 7), dpi=100)
-        plt.imshow(generated)
-        plt.axis("off")
-        plt.savefig("/output/{}.jpg".format(fileName))
-        imagePath = "/output/{}.jpg".format(fileName)
-        imageName = "{}.jpg".format(fileName)
+
+        genImage = Image.fromarray(out[0, 0])
+        baseDir = "/output/"
+        imageName = f"{self.filename}.jpg"
+        imagePath = os.path.join(baseDir, imageName)
+        genImage.save(imagePath, 'JPEG')
+        print(f"generated img ({genImage})")
         return imagePath, imageName
