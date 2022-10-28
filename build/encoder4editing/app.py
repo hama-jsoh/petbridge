@@ -137,7 +137,7 @@ def predict(cid, text):
     print(json.dumps(result, ensure_ascii=False, indent=4))
 
     # 최종결과 람다에 전달(flag=off 포함)
-    ChangeStatus(result)
+    #ChangeStatus(result)
 
 
 if __name__ == "__main__":
