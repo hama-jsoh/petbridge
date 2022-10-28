@@ -6,7 +6,6 @@ import clip
 from PIL import Image
 import pickle
 import copy
-import matplotlib.pyplot as plt
 from MapTS import GetFs, GetBoundary, GetDt
 from manipulate import Manipulator
 from typing import Optional
