@@ -16,7 +16,18 @@ from io import BytesIO
 from urllib import request as req
 from tools import RequestQueue, LoadQueue, ChangeStatus, ParseQueue
 
+
+def set_argument():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--cid", type=int, help="container_id")
+    parser.add_argument("--htext", type=str, help="host_text")
+    args = parser.parse_args()
+    return args
+
 config = LoadConfig('./config.yaml')
+ARGS = set_argument()
+CID = ARGS.cid
+HTEXT = ARGS.htext
 
 
 class RememberAI:
@@ -90,14 +101,13 @@ def ReturnMsg(status, msg, errType, data):
     return returnMsg
 
 
-def predict(cid, text):
+def predict(cid, text, total):
     """
     Description:
         전체 추론 (1 cycle)
     """
     failed = []
     done = []
-    total = len(taskQueue)
 
     objectName = RetrieveFile(cid)[0]
     image = f"https://{config['bucketName']}.s3.{config['location']}.amazonaws.com/{objectName}"
@@ -137,23 +147,8 @@ def predict(cid, text):
     print(json.dumps(result, ensure_ascii=False, indent=4))
 
     # 최종결과 람다에 전달(flag=off 포함)
-    #ChangeStatus(result)
+    ChangeStatus(result)
 
 
 if __name__ == "__main__":
-
-    DATA = [
-        {
-            "rp_idx": 23,
-            "ac_text": "happy",
-        },
-        {
-            "rp_idx": 24,
-            "ac_text": "happy",
-        }
-    ]
-
-    taskQueue = ParseQueue(DATA)
-
-    for cid, text in taskQueue.items():
-        predict(cid, text)
+    predict(CID, HTEXT)
