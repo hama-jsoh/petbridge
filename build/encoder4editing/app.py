@@ -14,11 +14,17 @@ from PIL import Image
 from s3 import UploadFile2, RetrieveFile, LoadConfig
 from io import BytesIO
 from urllib import request as req
+from tools import RequestQueue, LoadQueue, ChangeStatus, ParseQueue
 
 config = LoadConfig('./config.yaml')
 
 
 class RememberAI:
+    """
+    Description:
+        1. encoder4editing -> latents.pt
+        2. styleclip -> image.jpg
+    """
     def __init__(
         self,
         image: str,
@@ -35,6 +41,10 @@ class RememberAI:
         )
 
     def Inference(self, text: str = None):
+        """
+        Description:
+            styleclip 추론 함수
+        """
         target = {
             "wink": "wink",
             "cute": "cute",
@@ -72,66 +82,78 @@ class RememberAI:
 
 
 def ReturnMsg(status, msg, errType, data):
+    """
+    Description:
+        리턴 직렬화
+    """
     returnMsg = {"Status": status, "Msg": msg, "Type": errType, "Data": data}
     return returnMsg
 
 
-def predict():
-    # TaskQueue 불러오기
-    url = "http://devapi.petbridge.co.kr/api/remembrance/ai?done=0"
-    response = requests.get(url).json()
-    taskList = response['Data']['Result']['List']
-
-    hostTexts = []
-    containerIds = []
-    for task in taskList:
-        hostTexts.append(task['ac_text'])
-        containerIds.append(task['rp_idx'])
-    taskQueue = dict(zip(containerIds, hostTexts))
-
+def predict(cid, text):
+    """
+    Description:
+        전체 추론 (1 cycle)
+    """
     failed = []
     done = []
     total = len(taskQueue)
-    for containerId, hostText in taskQueue.items():
-        objectName = RetrieveFile(containerId)[0]
-        image = f"https://{config['bucketName']}.s3.{config['location']}.amazonaws.com/{objectName}"
 
-        fileExt = image[image.rfind(".") :]
-        exts = [".PNG", ".png", ".jpg", ".JPG", ".jpeg", ".JPEG"]
-        texts = [
-            "wink",
-            "cute",
-            "sad",
-            "happy",
-            "goldenFur",
-            "whiteFur",
-            "blackFur",
-            "brownFur",
-        ]
+    objectName = RetrieveFile(cid)[0]
+    image = f"https://{config['bucketName']}.s3.{config['location']}.amazonaws.com/{objectName}"
 
-        rememberAi = RememberAI(image)
+    fileExt = image[image.rfind(".") :]
+    exts = [".PNG", ".png", ".jpg", ".JPG", ".jpeg", ".JPEG"]
+    texts = [
+        "wink",
+        "cute",
+        "sad",
+        "happy",
+        "goldenFur",
+        "whiteFur",
+        "blackFur",
+        "brownFur",
+    ]
 
-        if fileExt in exts:
-            imagePath, imageName = rememberAi.Inference(text=hostText)
-            response = UploadFile2(imagePath, containerId)
-            if response == "SUCCEEDED":
-                done.append(dict(rp_idx=containerId, msg=response))
-            else:
-                failed.append(dict(rp_idx=containerId, msg=response))
-        elif fileExt not in exts:
-            failed.append(dict(rp_idx=containerId, msg=-1))
+    # encoder 모델 추론 -> latents.pt
+    rememberAi = RememberAI(image)
+
+    if fileExt in exts:
+        # styleclip 모델 추론 -> generate image(jpg)
+        imagePath, imageName = rememberAi.Inference(text=text)
+        response = UploadFile2(imagePath, cid)
+        if response == "SUCCEEDED":
+            done.append(dict(rp_idx=cid, msg=response))
         else:
-            failed.append(dict(rp_idx=containerId, msg="File format or file extension is not vaild"))
+            failed.append(dict(rp_idx=cid, msg=response))
+    elif fileExt not in exts:
+        failed.append(dict(rp_idx=cid, msg=-1))
+    else:
+        failed.append(dict(rp_idx=cid, msg="File format or file extension is not vaild"))
 
     data = dict(total=total, fail=failed, success=done)
     response = ReturnMsg(1, "Success", 1, data)
     result = dict(Result=response, flag='off')
     print(json.dumps(result, ensure_ascii=False, indent=4))
 
-    lambdaUrl = "https://34ml67fwcb.execute-api.ap-northeast-2.amazonaws.com/aiStyleInstanceCon/instance"
-    res = requests.post(lambdaUrl, json=result)
-    print(res.text)
+    # 최종결과 람다에 전달(flag=off 포함)
+    ChangeStatus(result)
 
 
 if __name__ == "__main__":
-    predict()
+
+    DATA = [
+        {
+            "rp_idx": 23,
+            "ac_text": "happy",
+        },
+        {
+            "rp_idx": 24,
+            "ac_text": "happy",
+        }
+    ]
+
+    taskQueue = ParseQueue(DATA)
+
+    for cid, text in taskQueue.items():
+        predict(cid, text)
