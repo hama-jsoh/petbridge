@@ -58,3 +58,10 @@ cd petbridge/docker \
 ```bash
 docker-compose up -d
 ```
+
+----
+
+## 임시
+```bash
+python3 queue_loader.py
+```
