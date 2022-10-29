@@ -61,7 +61,7 @@ docker-compose up -d
 
 ----
 
-## 임시
+## Hotfix
 ```bash
 python3 queue_loader.py
 ```
