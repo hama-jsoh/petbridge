@@ -130,6 +130,7 @@ def predict(cid, text):
     # encoder 모델 추론 -> latents.pt
     rememberAi = RememberAI(image)
 
+    # file extension validation
     if fileExt in exts:
         # styleclip 모델 추론 -> generate image(jpg)
         imagePath, imageName = rememberAi.Inference(text=text)
