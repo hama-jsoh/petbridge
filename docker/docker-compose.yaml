@@ -1,7 +1,7 @@
 version: "3"
 services:
   petBridge:
-    image: petbridge:0.0.1
+    image: petbridge:0.0.3
     container_name: pet-bridge
     shm_size: "8gb"
     runtime: nvidia
@@ -13,9 +13,7 @@ services:
     volumes:
       - ./ext-drive:/ext-drive
     working_dir: /encoder4editing
-    environment:
-      - DISPLAY=$DISPLAY
     network_mode: "host"
     tty: true
     restart: always
-    #command: python3 app.py
+    command: python3 app.py
