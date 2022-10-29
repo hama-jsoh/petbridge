@@ -103,7 +103,7 @@ def ReturnMsg(status, msg, errType, data):
     return returnMsg
 
 
-def predict(cid, text, total):
+def predict(cid, text):
     """
     Description:
         전체 추론 (1 cycle)
@@ -143,14 +143,11 @@ def predict(cid, text, total):
     else:
         failed.append(dict(rp_idx=cid, msg="File format or file extension is not vaild"))
 
-    data = dict(total=total, fail=failed, success=done)
+    data = dict(fail=failed, success=done)
     response = ReturnMsg(1, "Success", 1, data)
     result = dict(Result=response, flag='off')
     print(json.dumps(result, ensure_ascii=False, indent=4))
 
-    # 최종결과 람다에 전달(flag=off 포함)
-    ChangeStatus(result)
-
 
 if __name__ == "__main__":
-    predict(CID, HTEXT, TOTAL)
+    predict(CID, HTEXT)
