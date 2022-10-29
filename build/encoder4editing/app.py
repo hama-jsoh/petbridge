@@ -10,6 +10,7 @@ from e4e_main import Encoder4editor
 import os
 import json
 import requests
+import argparse
 from PIL import Image
 from s3 import UploadFile2, RetrieveFile, LoadConfig
 from io import BytesIO
