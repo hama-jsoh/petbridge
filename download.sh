@@ -6,6 +6,6 @@ wget --load-cookies ~/cookies.txt \
   -O copyfiles.zip \
   && rm -rf ~/cookies.txt
 
-mv petbridge/build/ petbridge/docker/ \
-  && unzip copyfiles.zip -d petbridge/docker/build/ \
+mv build/ docker/ \
+  && unzip copyfiles.zip -d docker/build/ \
   && rm copyfiles.zip
