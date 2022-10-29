@@ -1,4 +1,4 @@
-from tools import ParseQueue
+from tools import ParseQueue, RequestQueue
 import shlex
 import subprocess
 from s3 import ReturnMsg
@@ -6,7 +6,8 @@ from s3 import ReturnMsg
 
 if __name__ == "__main__":
 
-#     DATA = [
+#     # 테스트용 대기열
+#     TEST = [
 #         {
 #             "rp_idx": 23,
 #             "ac_text": "happy",
@@ -16,8 +17,7 @@ if __name__ == "__main__":
 #             "ac_text": "happy",
 #         }
 #     ]
-
-#     taskQueue = ParseQueue(DATA)
+#     testQueue = ParseQueue(TEST)
 
 
     taskList = RequestQueue()
