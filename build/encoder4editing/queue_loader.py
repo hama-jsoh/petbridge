@@ -1,4 +1,4 @@
-from tools import ParseQueue, RequestQueue
+from tools import ParseQueue, RequestQueue, ChangeStatus
 import shlex
 import subprocess
 from s3 import ReturnMsg
