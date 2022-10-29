@@ -10,7 +10,8 @@ warnings.filterwarnings(action='ignore')
 
 def ReturnMsg(status, msg, errType, data):
     """
-    리턴 직렬화하는 함수
+    Description:
+        리턴 직렬화하는 함수
     """
     returnMsg = {"Status": status, "Msg": msg, "Type": errType, "Data": data}
     return returnMsg
@@ -18,7 +19,8 @@ def ReturnMsg(status, msg, errType, data):
 
 def LoadConfig(path: str) -> dict:
     """
-    설정파일 불러오는 함수
+    Description:
+        설정파일 불러오는 함수
     """
     filename = path.split(".")
     ext = filename[-1]
@@ -34,7 +36,8 @@ def LoadConfig(path: str) -> dict:
         
 def RetrieveFile(container_id: str = '11'):
     """
-    S3 리소스 조회하는 함수
+    Description:
+        S3 리소스 조회하는 함수
     """
     config = LoadConfig("./config.yaml")
 
@@ -62,7 +65,8 @@ def RetrieveFile(container_id: str = '11'):
     
 def UploadFile1(imagePath: str, imageName: str, containerId: str) -> str:
     """
-    S3 파일 업로드 및 url 가져오는 함수
+    Description:
+        S3 파일 업로드 및 url 가져오는 함수
     """
     config = LoadConfig("./config.yaml")
     objectName = "{}/{}/{}".format(config['outputFirstDir'], containerId, imageName)
@@ -90,7 +94,8 @@ def UploadFile1(imagePath: str, imageName: str, containerId: str) -> str:
 
 def UploadFile2(imagePath: str, containerId: str):
     """
-    API Call S3 파일 업로드 & DB 등록하는 함수
+    Description:
+        API Call S3 파일 업로드 & DB 등록하는 함수
     """
     config = LoadConfig("./config.yaml")
     data = {"a_container_id": containerId, "a_container_type": config['outputFirstDir']}
