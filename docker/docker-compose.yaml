@@ -16,4 +16,4 @@ services:
     network_mode: "host"
     tty: true
     restart: always
-    command: python3 app.py
+    command: python3 queue_loader.py
