@@ -42,7 +42,7 @@ wget --load-cookies ~/cookies.txt "https://docs.google.com/uc?export=download&co
 
 ### 1-3. set folder structure
 ```bash
-mv copyfiles.zip pet petbridge/build/ \
+mv copyfiles.zip petbridge/build/ \
  && petbridge/build/ petbridge/docker/ \
  && unzip petbridge/docker/build/copyfiles.zip \
  && rm petbridge/docker/build/copyfiles.zip
