@@ -71,6 +71,10 @@ build/
     ├── manipulate.py
     └── sc_main.py
 ```
+  
+### 1-4. Modify config.yaml
+- awsAccessKey : "Enter your aws_access_key_id"
+- awsSecretKey : "Enter your aws_access_secret_key"
 
 ## 2. Build (dev server)
 ```bash
