@@ -1,7 +1,7 @@
 version: "3"
 services:
     petBridge:
-        image: petbridge:0.0.1
+        image: petbridge:0.0.3
         container_name: pet-bridge
         build:
           context: .
