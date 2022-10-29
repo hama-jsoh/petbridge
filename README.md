@@ -29,7 +29,7 @@
   
 ## 1. Git clone repo & setup folder structure
 ```bash
-git clone https://github.com/hama-jsoh/petbridge.git && bash download.sh
+git clone https://github.com/hama-jsoh/petbridge.git && bash petbridge/download.sh
 ```
     
 ### 1-1. Folder structure
