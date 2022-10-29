@@ -29,7 +29,7 @@
   
 ## 1. Git clone repo & setup folder structure
 ```bash
-git clone https://github.com/hama-jsoh/petbridge.git && bash petbridge/download.sh
+git clone https://github.com/hama-jsoh/petbridge.git && cd petbridge && bash download.sh
 ```
     
 ### 1-1. Folder structure
@@ -63,7 +63,7 @@ build/
 
 ## 2. Build (dev server)
 ```bash
-cd petbridge/docker \
+cd docker \
  && docker-compose -f docker-compose-build.yaml up -d
 ```
 
