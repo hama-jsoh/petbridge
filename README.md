@@ -29,26 +29,24 @@
 
 ## 1. Pre-requisite
 아래 커맨드로 `copyfiles.zip`을 다운로드 받고 `docker/build/` 폴더 아래에 압축을 푼다.  
-
+  
 ### 1-1. Git clone repository
 ```bash
 git clone https://github.com/hama-jsoh/petbridge.git
 ```
-
+  
 ### 1-2. Download copyfiles.zip
 ```bash
 wget --load-cookies ~/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies ~/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1Kazha62DSt59RFkUpssUTWZJA5SImAxW' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1Kazha62DSt59RFkUpssUTWZJA5SImAxW" -O copyfiles.zip && rm -rf ~/cookies.txt
 ```
-
+  
 ### 1-3. Set folder structure
 ```bash
-mv copyfiles.zip petbridge/build/
-```
-```bash
 mv petbridge/build/ petbridge/docker/ \
- && unzip petbridge/docker/build/copyfiles.zip \
- && rm petbridge/docker/build/copyfiles.zip
+ && unzip copyfiles.zip -d petbridge/build/ \
+ && rm copyfiles.zip
 ```
+  
 #### Folder structure
 ```bash
 build/
