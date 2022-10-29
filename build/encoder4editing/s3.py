@@ -4,17 +4,21 @@ import logging
 import warnings
 import requests
 
+# 파이썬 워닝 안보이게하기
 warnings.filterwarnings(action='ignore')
 
 
 def ReturnMsg(status, msg, errType, data):
+    """
+    리턴 직렬화하는 함수
+    """
     returnMsg = {"Status": status, "Msg": msg, "Type": errType, "Data": data}
+    return returnMsg
 
-# 설정파일 불러오기
+
 def LoadConfig(path: str) -> dict:
     """
-    input: yaml
-    output: json
+    설정파일 불러오는 함수
     """
     filename = path.split(".")
     ext = filename[-1]
@@ -27,8 +31,11 @@ def LoadConfig(path: str) -> dict:
             config = json.load(j)
             return config
 
-# S3 리소스 조회
+        
 def RetrieveFile(container_id: str = '11'):
+    """
+    S3 리소스 조회하는 함수
+    """
     config = LoadConfig("./config.yaml")
 
     s3Resource = boto3.resource(
@@ -52,8 +59,11 @@ def RetrieveFile(container_id: str = '11'):
         print(e)
         return False
 
-# S3 파일 업로드 및 url 가져오기
+    
 def UploadFile1(imagePath: str, imageName: str, containerId: str) -> str:
+    """
+    S3 파일 업로드 및 url 가져오는 함수
+    """
     config = LoadConfig("./config.yaml")
     objectName = "{}/{}/{}".format(config['outputFirstDir'], containerId, imageName)
     bucketName = config["bucketName"]
@@ -77,8 +87,11 @@ def UploadFile1(imagePath: str, imageName: str, containerId: str) -> str:
     imageUrl = f"https://{config['bucketName']}.s3.{config['location']}.amazonaws.com/{objectName}"
     return imageUrl
 
-# API Call S3 파일 업로드 & DB 등록
+
 def UploadFile2(imagePath: str, containerId: str):
+    """
+    API Call S3 파일 업로드 & DB 등록하는 함수
+    """
     config = LoadConfig("./config.yaml")
     data = {"a_container_id": containerId, "a_container_type": config['outputFirstDir']}
     file = {"files": open(imagePath, 'rb')}
