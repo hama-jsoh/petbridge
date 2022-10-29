@@ -26,7 +26,7 @@ RUN python3 -m pip install --upgrade pip \
     -f https://download.pytorch.org/whl/torch_stable.html \
  && python3 -m pip install ftfy regex tqdm requests pandas opencv-python matplotlib \
  && python3 -m pip install git+https://github.com/openai/CLIP.git \
- && python3 -m pip install boto3 pyyaml
+ && python3 -m pip install boto3 pyyaml rich
 # && python3 -m pip cache purge
 
 # Set localtime
