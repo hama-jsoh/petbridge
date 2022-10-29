@@ -3,7 +3,8 @@ import requests
 
 def RequestQueue():
     """
-    대기열 요청 함수
+    Description:
+        대기열 요청 함수
     """
     url = "http://devapi.petbridge.co.kr/api/remembrance/ai?done=0"
     response = requests.get(url).json()
@@ -12,7 +13,8 @@ def RequestQueue():
 
 def ParseQueue(tasklist):
     """
-    대기열 파서
+    Description:
+        대기열 파싱하는 함수
     """
     hostTexts = []
     containerIds = []
@@ -24,7 +26,8 @@ def ParseQueue(tasklist):
 
 def LoadQueue():
     """
-    불러온 대기열 파싱해서 리턴
+    Description:
+        대기열 불러와서 파싱하는 함수
     """
     taskList = RequestQueue()
     taskQueue = ParseQueue(taskList)
@@ -32,7 +35,8 @@ def LoadQueue():
 
 def ChangeStatus(result):
     """
-    람다에 최종 결과 & 인스턴스 종료(상태) 메시지 전송
+    Description:
+        람다에 최종 결과 & 인스턴스 종료(상태) 메시지 전송하는 함수
     """
     lambdaUrl = "https://34ml67fwcb.execute-api.ap-northeast-2.amazonaws.com/aiStyleInstanceCon/instance"
     res = requests.post(lambdaUrl, json=result)
