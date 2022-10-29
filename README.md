@@ -27,28 +27,52 @@
 
 ----
 
-## 1. pre-requisite
+## 1. Pre-requisite
 아래 커맨드로 `copyfiles.zip`을 다운로드 받고 `docker/build/` 폴더 아래에 압축을 푼다.  
 
-### 1-1. git clone repository
+### 1-1. Git clone repository
 ```bash
 git clone https://github.com/hama-jsoh/petbridge.git
 ```
 
-### 1-2. download copyfiles.zip
+### 1-2. Download copyfiles.zip
 ```bash
 wget --load-cookies ~/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies ~/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1Kazha62DSt59RFkUpssUTWZJA5SImAxW' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1Kazha62DSt59RFkUpssUTWZJA5SImAxW" -O copyfiles.zip && rm -rf ~/cookies.txt
 ```
 
-### 1-3. set folder structure
+### 1-3. Set folder structure
 ```bash
 mv copyfiles.zip petbridge/build/ \
  && petbridge/build/ petbridge/docker/ \
  && unzip petbridge/docker/build/copyfiles.zip \
  && rm petbridge/docker/build/copyfiles.zip
 ```
+#### Folder structure
+```bash
+build/
+├── copyfiles
+│   ├── afhqdog
+│   │   ├── fs3.npy
+│   │   ├── S
+│   │   ├── S_mean_std
+│   │   └── W.npy
+│   ├── model
+│   │   └── afhqdog.pkl
+│   └── pretrained_models
+│       └── e4e_dog_encode.pt
+├── encoder4editing
+│   ├── app.py
+│   ├── config.yaml
+│   ├── e4e_main.py
+│   ├── queue_loader.py
+│   ├── s3.py
+│   └── tools.py
+└── styleclip
+    ├── manipulate.py
+    └── sc_main.py
+```
 
-## 2. build (dev server)
+## 2. Build (dev server)
 ```bash
 cd petbridge/docker \
  && docker-compose -f docker-compose-build.yaml up -d
