@@ -21,15 +21,11 @@ def set_argument():
     parser = argparse.ArgumentParser()
     parser.add_argument("--cid", type=int, help="container_id")
     parser.add_argument("--htext", type=str, help="host_text")
-    parser.add_argument("--total", type=int, help="task_queue_length")
     args = parser.parse_args()
     return args
 
-config = LoadConfig('./config.yaml')
 ARGS = set_argument()
-CID = ARGS.cid
-HTEXT = ARGS.htext
-TOTAL = ARGS.total
+config = LoadConfig('./config.yaml')
 
 
 class RememberAI:
@@ -148,6 +144,10 @@ def predict(cid, text):
     response = ReturnMsg(1, "Success", 1, data)
     result = dict(Result=response, flag='off')
     print(json.dumps(result, ensure_ascii=False, indent=4))
+
+
+CID = ARGS.cid
+HTEXT = ARGS.htext
 
 
 if __name__ == "__main__":
