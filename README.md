@@ -58,8 +58,10 @@ build/
 ```
   
 ### 1-2. Modify config.yaml
-- awsAccessKey : "Enter your aws_access_key_id"
-- awsSecretKey : "Enter your aws_access_secret_key"
+```yaml
+awsAccessKey: "Enter your aws_access_key_id"
+awsSecretKey: "Enter your aws_access_secret_key"
+```
 
 ## 2. Build (dev server)
 ```bash
