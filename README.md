@@ -63,8 +63,7 @@ build/
 
 ## 2. Build (dev server)
 ```bash
-cd docker \
- && docker-compose -f docker-compose-build.yaml up -d
+cd docker && docker-compose -f docker-compose-build.yaml up -d
 ```
 
 ## 3. Run service (service server)
