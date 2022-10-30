@@ -7,18 +7,18 @@ from s3 import ReturnMsg
 
 if __name__ == "__main__":
 
-#     # 테스트용 대기열
-#     TEST = [
-#         {
-#             "rp_idx": 23,
-#             "ac_text": "happy",
-#         },
-#         {
-#             "rp_idx": 24,
-#             "ac_text": "happy",
-#         }
-#     ]
-#     testQueue = ParseQueue(TEST)
+#    # 테스트용 대기열
+#    TEST = [
+#        {
+#            "rp_idx": 23,
+#            "ac_text": "happy",
+#        },
+#        {
+#            "rp_idx": 24,
+#            "ac_text": "happy",
+#        }
+#    ]
+#    testQueue = ParseQueue(TEST)
 
 
     taskList = RequestQueue()
