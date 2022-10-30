@@ -20,3 +20,7 @@ __version__ = "0.0.4"
 __author__ = "juseokoh"
 __author_email__ = "juseok@hamagroups.io"
 __url__ = "https://www.hamagroups.io/"
+
+
+if __name__ == "__main__":
+    print(__logo__)
