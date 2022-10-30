@@ -1,6 +1,7 @@
 from tools import ParseQueue, RequestQueue, ChangeStatus
 import shlex
 import subprocess
+from logger import Logger
 from s3 import ReturnMsg
 
 
@@ -50,5 +51,8 @@ if __name__ == "__main__":
     data = dict(total=total, fail=fail, success=success)
     result = ReturnMsg(1, "Success", 1, data)
     RESULT = dict(Result=result, flag='off')
-
+    
+    # 로그 저장
+    Logger.info(RESULT)
+    
     ChangeStatus(RESULT)
