@@ -77,5 +77,5 @@ docker-compose up -d
 
 ## Hotfix
 ```bash
-python3 queue_loader.py
+python3 queue_loader.py --mode [test or service]
 ```
