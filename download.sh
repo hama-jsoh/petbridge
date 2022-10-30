@@ -6,6 +6,8 @@ wget --load-cookies ~/cookies.txt \
   -O copyfiles.zip \
   && rm -rf ~/cookies.txt
 
+python3 petbridge/__about__.py
+
 mv build/ docker/ \
   && unzip copyfiles.zip -d docker/build/ \
   && rm copyfiles.zip
