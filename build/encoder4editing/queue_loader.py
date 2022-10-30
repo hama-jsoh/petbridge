@@ -1,30 +1,42 @@
 from tools import ParseQueue, RequestQueue, ChangeStatus
 import shlex
 import subprocess
+import argparse
 from logger import Logger
 from s3 import ReturnMsg
 
 
+def set_argument():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--mode", type=str, default="service", help="test or service")
+    args = parser.parse_args()
+    return args
+
+ARGS = set_argument()
+MODE = ARGS.mode
+
+
 if __name__ == "__main__":
 
-#    # 테스트용 대기열
-#    TEST = [
-#        {
-#            "rp_idx": 23,
-#            "ac_text": "happy",
-#        },
-#        {
-#            "rp_idx": 24,
-#            "ac_text": "happy",
-#        }
-#    ]
-#    testQueue = ParseQueue(TEST)
-
-
-    taskList = RequestQueue()
-    taskQueue = ParseQueue(taskList)
+    if MODE == "test":
+        # 테스트용 대기열
+        TEST = [
+            {
+                "rp_idx": 23,
+                "ac_text": "happy",
+            },
+            {
+                "rp_idx": 24,
+                "ac_text": "happy",
+            }
+        ]
+        taskQueue = ParseQueue(TEST)
+    else:
+        taskList = RequestQueue()
+        taskQueue = ParseQueue(taskList)
+        
     total = len(taskQueue)
-  
+
     fail = []
     success = []
     for cid, htext in taskQueue.items():
@@ -55,4 +67,5 @@ if __name__ == "__main__":
     # 로그 저장
     Logger.info(RESULT)
     
-    ChangeStatus(RESULT)
+    if MODE is not "test":
+        ChangeStatus(RESULT)
