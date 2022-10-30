@@ -16,7 +16,6 @@ from s3 import UploadFile2, RetrieveFile, LoadConfig
 from io import BytesIO
 from urllib import request as req
 from tools import RequestQueue, LoadQueue, ChangeStatus, ParseQueue
-from logger import Logger
 
 
 def set_argument():
@@ -133,7 +132,6 @@ def predict(cid, text):
         # styleclip 모델 추론 -> generate image(jpg)
         imagePath, imageName = rememberAi.Inference(text=text)
         response = UploadFile2(imagePath, cid)
-        Logger.info(f"'{cid}': {response}")
         if response == "SUCCEEDED":
             done.append(dict(rp_idx=cid, msg=response))
         else:
