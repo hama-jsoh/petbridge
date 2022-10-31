@@ -62,7 +62,6 @@ if __name__ == "__main__":
 
     data = dict(total=total, fail=fail, success=success)
     result = ReturnMsg(1, "Success", 1, data)
-    result['Status'] = True
     RESULT = dict(Result=result, flag='off')
     
     # 로그 저장
